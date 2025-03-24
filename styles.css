@@ -833,12 +833,28 @@ textarea.form-control {
     resize: vertical;
 }
 
-.form-group input, .form-group textarea {
+.form-group input, 
+.form-group textarea {
     width: 100%;
     padding: 1rem;
     background-color: rgba(0, 221, 255, 0.05);
     border: 1px solid rgba(0, 221, 255, 0.3);
-    /* same as .form-control */
+    border-radius: 5px;
+    color: var(--text-primary); /* This makes text light colored */
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 2px rgba(255, 0, 238, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Lighter placeholder text */
 }
 
 .submit-btn {
