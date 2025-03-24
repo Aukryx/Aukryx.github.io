@@ -181,6 +181,7 @@
     });
     
     // Form Submission
+    /*
     const contactForm = document.getElementById('contactForm');
     
     contactForm.addEventListener('submit', (e) => {
@@ -199,6 +200,7 @@
             }, 3000);
         }, 2000);
     });
+    */
     
     // Animation on Scroll
     const animateElements = document.querySelectorAll('.about-content, .project-card, .contact-info, .contact-form');
