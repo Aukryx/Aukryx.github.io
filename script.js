@@ -37,6 +37,24 @@
         });
     });
     
+    // Detect touch devices and disable custom cursor
+    function isTouchDevice() {
+        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+    }
+
+    if (isTouchDevice()) {
+        const cursor = document.querySelector('.cursor');
+        const cursorTrail = document.querySelector('.cursor-trail');
+        
+        if (cursor) cursor.style.display = 'none';
+        if (cursorTrail) cursorTrail.style.display = 'none';
+        
+        // Remove cursor effects from elements
+        document.querySelectorAll('a, button, input, textarea, .project-card').forEach(element => {
+            element.style.cursor = 'pointer';
+        });
+    }
+
     // Sticky Navigation
     const nav = document.querySelector('nav');
     
@@ -51,19 +69,29 @@
     // Mobile Navigation
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
-    });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
     
     // About Tabs
     const tabButtons = document.querySelectorAll('.tab-button');
