@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lem-in Algorithm | Aukryx</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-blue: #0ea5e9;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-yellow: #f59e0b;
+      --accent-red: #ef4444;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--bg-secondary);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-blue);
+    }
+    
+    .back-button {
+      padding: 0.5rem 1rem;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background-color: var(--accent-blue);
+      color: white;
+    }
+    
+    .page-header {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    
+    h2, h3 {
+      color: var(--text-primary);
+    }
+    
+    /* Project sections */
+    .project-section {
+      margin-bottom: 3rem;
+    }
+    
+    /* Algorithm explanation */
+    .algorithm-explanation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .algorithm-explanation {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .algorithm-text {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    
+    .algorithm-diagram {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .diagram-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    /* Example showcase */
+    .example-selector {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .example-button {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--bg-secondary);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .example-button:hover {
+      background-color: rgba(14, 165, 233, 0.2);
+      border-color: var(--accent-blue);
+    }
+    
+    .example-button.active {
+      background-color: rgba(14, 165, 233, 0.3);
+      border-color: var(--accent-blue);
+    }
+    
+    .example-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 992px) {
+      .example-display {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .colony-map {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      min-height: 400px;
+    }
+    
+    .colony-info {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    
+    .colony-code {
+      font-family: monospace;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre;
+    }
+    
+    .solution-details {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .metric {
+      background-color: rgba(14, 165, 233, 0.1);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(14, 165, 233, 0.2);
+    }
+    
+    /* Animation controls */
+    .animation-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .control-button {
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .control-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .animation-speed {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Colony visualization */
+    .colony-container {
+      width: 100%;
+      height: 350px;
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    /* Turn by turn display */
+    .turns-container {
+      margin-top: 1.5rem;
+    }
+    
+    .turn-box {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .turn-title {
+      font-weight: bold;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+    
+    .turn-moves {
+      font-family: monospace;
+      color: var(--accent-yellow);
+    }
+    
+    /* Room and ant styling */
+    .room {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    
+    .room.start {
+      background-color: rgba(16, 185, 129, 0.3);
+      border: 2px solid var(--accent-green);
+    }
+    
+    .room.end {
+      background-color: rgba(239, 68, 68, 0.3);
+      border: 2px solid var(--accent-red);
+    }
+    
+    .ant {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--accent-yellow);
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #000;
+      transition: all 0.5s ease;
+    }
+    
+    /* Source code section */
+    .code-section {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    
+    .code-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.5rem;
+    }
+    
+    .code-tab {
+      padding: 0.5rem 1rem;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-radius: 4px 4px 0 0;
+    }
+    
+    .code-tab:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+    }
+    
+    .code-tab.active {
+      background-color: rgba(14, 165, 233, 0.1);
+      color: var(--accent-blue);
+      border-bottom: 2px solid var(--accent-blue);
+    }
+    
+    .code-content {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: var(--text-primary);
+    }
+    
+    /* Footer */
+    .project-footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Aukryx</div>
+    <a href="portfolio.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
+  
+  <div class="container">
+    <header class="page-header">
+      <h1>Lem-in Ant Colony Pathfinder</h1>
+      <p>An algorithm to efficiently route ants through network tunnels with minimal congestion</p>
+    </header>
+    
+    <!-- Algorithm description section -->
+    <section class="project-section">
+      <div class="algorithm-explanation">
+        <div class="algorithm-text">
+          <h2>How It Works</h2>
+          <p>The Lem-in algorithm solves a complex optimization problem:</p>
+          <ul>
+            <li><strong>Goal:</strong> Move all ants from start room to end room in minimum number of turns</li>
+            <li><strong>Constraints:</strong> Only one ant per room (except start/end), each ant can move only once per turn</li>
+            <li><strong>Challenge:</strong> Finding and distributing ants across multiple paths to minimize congestion</li>
+          </ul>
+          
+          <h3>Algorithm Steps:</h3>
+          <ol>
+            <li>Parse the colony layout (rooms, tunnels, start/end points)</li>
+            <li>Find all possible shortest paths from start to end using BFS</li>
+            <li>Calculate optimal distribution of ants across these paths</li>
+            <li>Simulate ant movements turn by turn, ensuring no collisions</li>
+            <li>Output the sequence of movements that completes in minimal turns</li>
+          </ol>
+          
+          <p>The algorithm uses graph theory concepts and optimization techniques to balance load across multiple paths, similar to problems in network routing and traffic management.</p>
+        </div>
+        
+        <div class="algorithm-diagram">
+          <img src="https://via.placeholder.com/500x300/1e293b/0ea5e9?text=Algorithm+Flow+Diagram" alt="Algorithm flow diagram" class="diagram-image">
+          <p>The algorithm finds and distributes ants across multiple optimal paths to minimize the total number of turns.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Examples section -->
+    <section class="project-section">
+      <h2>Interactive Examples</h2>
+      <p>Select a colony to see how the algorithm finds optimal paths and routes the ants:</p>
+      
+      <div class="example-selector">
+        <button class="example-button active" data-example="simple">Simple Path</button>
+        <button class="example-button" data-example="dual">Dual Path</button>
+        <button class="example-button" data-example="complex">Complex Network</button>
+        <button class="example-button" data-example="large">Large Colony</button>
+      </div>
+      
+      <div class="example-display">
+        <div class="colony-map">
+          <div class="animation-controls">
+            <button class="control-button" id="reset-button">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="control-button" id="play-button">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="control-button" id="next-button">
+              <i class="fas fa-step-forward"></i>
+            </button>
+            <div class="animation-speed">
+              <span>Speed:</span>
+              <select id="speed-select">
+                <option value="1">1x</option>
+                <option value="2" selected>2x</option>
+                <option value="3">3x</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="colony-container" id="colony-visualization">
+            <!-- Visualization will be rendered here -->
+          </div>
+          
+          <div class="turn-box" id="current-turn">
+            <div class="turn-title">Current Turn:</div>
+            <div class="turn-moves" id="turn-moves"></div>
+          </div>
+        </div>
+        
+        <div class="colony-info">
+          <h3>Colony Definition</h3>
+          <div class="colony-code" id="colony-code"></div>
+          
+          <h3>Solution</h3>
+          <div class="solution-details">
+            <div class="metrics">
+              <div class="metric">
+                <strong>Ants:</strong> <span id="ants-count">3</span>
+              </div>
+              <div class="metric">
+                <strong>Rooms:</strong> <span id="rooms-count">4</span>
+              </div>
+              <div class="metric">
+                <strong>Paths Found:</strong> <span id="paths-count">1</span>
+              </div>
+              <div class="metric">
+                <strong>Total Turns:</strong> <span id="turns-count">5</span>
+              </div>
+            </div>
+            
+            <h4>Optimal Paths:</h4>
+            <div id="optimal-paths">
+              <p>Path 1: start → A → B → end (length: 3)</p>
+            </div>
+            
+            <h4>All Turns:</h4>
+            <div class="turns-container" id="all-turns">
+              <!-- Turn data will be added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Code highlights section -->
+    <section class="project-section">
+      <h2>Code Highlights</h2>
+      <div class="code-section">
+        <div class="code-tabs">
+          <button class="code-tab active" data-tab="parsing">Colony Parsing</button>
+          <button class="code-tab" data-tab="pathfinding">Pathfinding</button>
+          <button class="code-tab" data-tab="optimization">Ant Distribution</button>
+          <button class="code-tab" data-tab="simulation">Movement Simulation</button>
+        </div>
+        
+        <div class="code-content" id="code-content">
+          <!-- Code will be displayed here -->
+        </div>
+      </div>
+    </section>
+    
+    <footer class="project-footer">
+      <p>This project demonstrates graph algorithms, optimization, and simulation techniques using Go.</p>
+      <p>View the <a href="https://github.com/yourusername/lem-in" target="_blank">full source code on GitHub</a>.</p>
+    </footer>
+  </div>
+  
+  <script>
+    // Pre-computed example data
+    const examples = {
+      simple: {
+        code: `3\n##start\n0 1 0\n##end\n1 5 0\n2 9 0\n3 13 0\n0-2\n2-3\n3-1`,
+        ants: 3,
+        rooms: [
+          { name: "0", x: 10, y: 50, isStart: true, isEnd: false },
+          { name: "1", x: 270, y: 50, isStart: false, isEnd: true },
+          { name: "2", x: 100, y: 50, isStart: false, isEnd: false },
+          { name: "3", x: 190, y: 50, isStart: false, isEnd: false }
+        ],
+        connections: [
+          { from: "0", to: "2" },
+          { from: "2", to: "3" },
+          { from: "3", to: "1" }
+        ],
+        paths: [
+          ["0", "2", "3", "1"]
+        ],
+        turns: [
+          { turn: 1, moves: ["L1-2"] },
+          { turn: 2, moves: ["L1-3", "L2-2"] },
+          { turn: 3, moves: ["L1-1", "L2-3", "L3-2"] },
+          { turn: 4, moves: ["L2-1", "L3-3"] },
+          { turn: 5, moves: ["L3-1"] }
+        ],
+        metrics: {
+          ants: 3,
+          rooms: 4,
+          paths: 1,
+          turns: 5
+        }
+      },
+      dual: {
+        code: `3\n2 5 0\n##start\n0 1 2\n##end\n1 9 2\n3 5 4\n0-2\n0-3\n2-1\n3-1\n2-3`,
+        ants: 3,
+        rooms: [
+          { name: "0", x: 10, y: 100, isStart: true, isEnd: false },
+          { name: "1", x: 270, y: 100, isStart: false, isEnd: true },
+          { name: "2", x: 100, y: 50, isStart: false, isEnd: false },
+          { name: "3", x: 100, y: 150, isStart: false, isEnd: false }
+        ],
+        connections: [
+          { from: "0", to: "2" },
+          { from: "0", to: "3" },
+          { from: "2", to: "1" },
+          { from: "3", to: "1" },
+          { from: "2", to: "3" }
+        ],
+        paths: [
+          ["0", "2", "1"],
+          ["0", "3", "1"]
+        ],
+        turns: [
+          { turn: 1, moves: ["L1-2", "L2-3"] },
+          { turn: 2, moves: ["L1-1", "L2-1", "L3-2"] },
+          { turn: 3, moves: ["L3-1"] }
+        ],
+        metrics: {
+          ants: 3,
+          rooms: 4,
+          paths: 2,
+          turns: 3
+        }
+      },
+      complex: {
+        code: `4\n5 4 4\n##start\n0 1 4\n1 3 6\n##end\n5 6 4\n2 3 4\n3 3 1\n4-2\n4-1\n4-5\n4-3\n0-1\n0-2\n0-3\n1-0\n1-4\n5-4\n2-4\n2-0\n3-0\n3-4`,
+        ants: 4,
+        rooms: [
+          { name: "0", x: 10, y: 100, isStart: true, isEnd: false },
+          { name: "1", x: 60, y: 40, isStart: false, isEnd: false },
+          { name: "2", x: 60, y: 100, isStart: false, isEnd: false },
+          { name: "3", x: 60, y: 160, isStart: false, isEnd: false },
+          { name: "4", x: 170, y: 100, isStart: false, isEnd: false },
+          { name: "5", x: 270, y: 100, isStart: false, isEnd: true }
+        ],
+        connections: [
+          { from: "0", to: "1" },
+          { from: "0", to: "2" },
+          { from: "0", to: "3" },
+          { from: "1", to: "4" },
+          { from: "2", to: "4" },
+          { from: "3", to: "4" },
+          { from: "4", to: "5" }
+        ],
+        paths: [
+          ["0", "1", "4", "5"],
+          ["0", "2", "4", "5"],
+          ["0", "3", "4", "5"]
+        ],
+        turns: [
+          { turn: 1, moves: ["L1-1", "L2-2", "L3-3"] },
+          { turn: 2, moves: ["L1-4", "L2-4", "L3-4", "L4-1"] },
+          { turn: 3, moves: ["L1-5", "L2-5", "L3-5", "L4-4"] },
+          { turn: 4, moves: ["L4-5"] }
+        ],
+        metrics: {
+          ants: 4,
+          rooms: 6,
+          paths: 3,
+          turns: 4
+        }
+      },
+      large: {
+        code: `9\ngilfoyle 6 3\nerlich 9 6\ndinish 6 9\njimYoung 11 7\n##end\npeter 14 6\n##start\nrichard 0 6\nerlich-gilfoyle\nerlich-richard\nerlich-jimYoung\ndinish-richard\ndinish-jimYoung\njimYoung-dinish\njimYoung-erlich\njimYoung-peter\npeter-gilfoyle\npeter-jimYoung\nrichard-dinish\nrichard-gilfoyle\nrichard-erlich\ngilfoyle-richard\ngilfoyle-peter\ngilfoyle-erlich`,
+        ants: 9,
+        rooms: [
+          { name: "richard", x: 10, y: 100, isStart: true, isEnd: false },
+          { name: "gilfoyle", x: 100, y: 50, isStart: false, isEnd: false },
+          { name: "erlich", x: 170, y: 30, isStart: false, isEnd: false },
+          { name: "dinish", x: 100, y: 150, isStart: false, isEnd: false },
+          { name: "jimYoung", x: 200, y: 100, isStart: false, isEnd: false },
+          { name: "peter", x: 270, y: 100, isStart: false, isEnd: true }
+        ],
+        connections: [
+          { from: "richard", to: "gilfoyle" },
+          { from: "richard", to: "erlich" },
+          { from: "richard", to: "dinish" },
+          { from: "gilfoyle", to: "peter" },
+          { from: "gilfoyle", to: "erlich" },
+          { from: "erlich", to: "jimYoung" },
+          { from: "dinish", to: "jimYoung" },
+          { from: "jimYoung", to: "peter" }
+        ],
+        paths: [
+          ["richard", "gilfoyle", "peter"],
+          ["richard", "dinish", "jimYoung", "peter"]
+        ],
+        turns: [
+          { turn: 1, moves: ["L1-gilfoyle", "L3-dinish"] },
+          { turn: 2, moves: ["L1-peter", "L2-gilfoyle", "L3-jimYoung", "L5-dinish"] },
+          { turn: 3, moves: ["L2-peter", "L4-gilfoyle", "L3-peter", "L5-jimYoung", "L7-dinish"] },
+          { turn: 4, moves: ["L4-peter", "L6-gilfoyle", "L5-peter", "L7-jimYoung", "L9-dinish"] },
+          { turn: 5, moves: ["L6-peter", "L8-gilfoyle", "L7-peter", "L9-jimYoung"] },
+          { turn: 6, moves: ["L8-peter", "L9-peter"] }
+        ],
+        metrics: {
+          ants: 9,
+          rooms: 6,
+          paths: 2,
+          turns: 6
+        }
+      }
+    };
+    
+    // Code snippets
+    const codeSnippets = {
+      parsing: `// Parse the input file to extract colony information
+func parseInput(scanner *bufio.Scanner) (*Colony, error) {
+    colony := &Colony{}
+    var roomSection bool = true
+    
+    // Read number of ants
+    if !scanner.Scan() {
+        return nil, errors.New("invalid data format")
+    }
+    antCount, err := strconv.Atoi(scanner.Text())
+    if err != nil || antCount <= 0 {
+        return nil, errors.New("invalid data format, invalid number of ants")
+    }
+    colony.AntCount = antCount
+    
+    // Read rooms and connections
+    for scanner.Scan() {
+        line := scanner.Text()
+        
+        // Skip comments that aren't commands
+        if strings.HasPrefix(line, "#") && !strings.HasPrefix(line, "##") {
+            continue
+        }
+        
+        // Check for start/end commands
+        if line == "##start" {
+            // Next line should be the start room
+            if !scanner.Scan() {
+                return nil, errors.New("invalid data format, missing start room")
+            }
+            roomLine := scanner.Text()
+            room, err := parseRoom(roomLine)
+            if err != nil {
+                return nil, err
+            }
+            colony.Rooms[room.Name] = room
+            colony.StartRoom = room.Name
+            continue
+        }
+        
+        if line == "##end" {
+            // Next line should be the end room
+            if !scanner.Scan() {
+                return nil, errors.New("invalid data format, missing end room")
+            }
+            roomLine := scanner.Text()
+            room, err := parseRoom(roomLine)
+            if err != nil {
+                return nil, err
+            }
+            colony.Rooms[room.Name] = room
+            colony.EndRoom = room.Name
+            continue
+        }
+        
+        // Check if this is a room or connection
+        if strings.Contains(line, "-") {
+            roomSection = false
+            // Parse connection
+            parts := strings.Split(line, "-")
+            if len(parts) != 2 {
+                return nil, errors.New("invalid data format, invalid connection")
+            }
+            
+            colony.Connections = append(colony.Connections, Connection{
+                From: parts[0],
+                To:   parts[1],
+            })
+        } else if roomSection {
+            // Parse room
+            room, err := parseRoom(line)
+            if err != nil {
+                return nil, err
+            }
+            colony.Rooms[room.Name] = room
+        }
+    }
+    
+    // Validate colony has start and end rooms
+    if colony.StartRoom == "" {
+        return nil, errors.New("invalid data format, no start room")
+    }
+    if colony.EndRoom == "" {
+        return nil, errors.New("invalid data format, no end room")
+    }
+    
+    return colony, nil
+}`,
+      pathfinding: `// Find all shortest paths from start to end using BFS
+func findAllShortestPaths(colony *Colony) [][]string {
+    graph := buildGraph(colony)
+    visited := make(map[string]bool)
+    queue := []Path{{colony.StartRoom, []string{colony.StartRoom}}}
+    var shortestPaths [][]string
+    var shortestLength int = math.MaxInt32
+    
+    for len(queue) > 0 {
+        // Dequeue the next path to explore
+        current := queue[0]
+        queue = queue[1:]
+        
+        // Get the last node in the current path
+        currentNode := current.Nodes[len(current.Nodes)-1]
+        
+        // If we've reached the end, record the path
+        if currentNode == colony.EndRoom {
+            pathLength := len(current.Nodes)
+            if pathLength <= shortestLength {
+                if pathLength < shortestLength {
+                    // Found a shorter path, clear previous paths
+                    shortestPaths = nil
+                    shortestLength = pathLength
+                }
+                shortestPaths = append(shortestPaths, current.Nodes)
+            }
+            continue
+        }
+        
+        // Mark current node as visited (for this path)
+        visited[currentNode] = true
+        
+        // Add all unvisited neighbors to the queue
+        for _, neighbor := range graph[currentNode] {
+            // Skip if already in the current path
+            if contains(current.Nodes, neighbor) {
+                continue
+            }
+            
+            // Create a new path with this neighbor
+            newPath := make([]string, len(current.Nodes))
+            copy(newPath, current.Nodes)
+            newPath = append(newPath, neighbor)
+            
+            // Add to queue if path is not longer than shortest known path
+            if len(newPath) <= shortestLength {
+                queue = append(queue, Path{neighbor, newPath})
+            }
+        }
+        
+        // Unmark this node (for other paths)
+        visited[currentNode] = false
+    }
+    
+    return shortestPaths
+}`,
+      optimization: `// Find optimal distribution of ants across paths
+func optimizeAntDistribution(colony *Colony, paths [][]string) map[int][]string {
+    // Calculate path lengths
+    pathLengths := make([]int, len(paths))
+    for i, path := range paths {
+        pathLengths[i] = len(path) - 1 // Number of steps = nodes - 1
+    }
+    
+    // Sort paths by length (shortest first)
+    sortedIndices := sortPathsByLength(pathLengths)
+    
+    // Start with all ants on the shortest path
+    distribution := make([]int, len(paths))
+    distribution[sortedIndices[0]] = colony.AntCount
+    
+    // Calculate initial turn count
+    turnCount := pathLengths[sortedIndices[0]] + colony.AntCount - 1
+    
+    // Iteratively optimize distribution
+    improved := true
+    for improved {
+        improved = false
+        
+        // Try moving ants from busier paths to less busy ones
+        for i := 0; i < len(paths); i++ {
+            if distribution[i] <= 1 {
+                continue // Need at least 2 ants to redistribute
+            }
+            
+            for j := 0; j < len(paths); j++ {
+                if i == j {
+                    continue
+                }
+                
+                // Try moving one ant
+                distribution[i]--
+                distribution[j]++
+                
+                // Calculate new turn count
+                maxPathTurns := 0
+                for k := 0; k < len(paths); k++ {
+                    if distribution[k] > 0 {
+                        pathTurns := pathLengths[k] + distribution[k] - 1
+                        maxPathTurns = max(maxPathTurns, pathTurns)
+                    }
+                }
+                
+                // If improved, keep change
+                if maxPathTurns < turnCount {
+                    turnCount = maxPathTurns
+                    improved = true
+                } else {
+                    // Revert change
+                    distribution[i]++
+                    distribution[j]--
+                }
+            }
+        }
+    }
+    
+    // Create ant-to-path mapping
+    antPaths := make(map[int][]string)
+    antID := 1
+    
+    for i, count := range distribution {
+        for j := 0; j < count; j++ {
+            if antID <= colony.AntCount {
+                antPaths[antID] = paths[i]
+                antID++
+            }
+        }
+    }
+    
+    return antPaths
+}`,
+      simulation: `// Simulate ant movements and generate turns
+func simulateMovements(colony *Colony, antPaths map[int][]string) [][]string {
+    // Track ant positions: ant ID -> position in its path
+    antPositions := make(map[int]int)
+    for i := 1; i <= colony.AntCount; i++ {
+        antPositions[i] = 0 // Start before first node
+    }
+    
+    // Track room occupancy: room name -> ant ID
+    roomOccupancy := make(map[string]int)
+    
+    // Initialize turns
+    var turns [][]string
+    
+    // Continue until all ants reach the end
+    antsFinished := 0
+    for antsFinished < colony.AntCount {
+        // Moves for current turn
+        var moves []string
+        
+        // Process each ant
+        for antID := 1; antID <= colony.AntCount; antID++ {
+            path := antPaths[antID]
+            pos := antPositions[antID]
+            
+            // Skip ants that have reached the end
+            if pos >= len(path) - 1 {
+                continue
+            }
+            
+            // Check if this ant can move
+            nextRoom := path[pos+1]
+            
+            // Ant can move if:
+            // 1. Room is not occupied OR it's the end room
+            // 2. Ant has started its journey OR the delay based on ant ID has passed
+            if (roomOccupancy[nextRoom] == 0 || nextRoom == colony.EndRoom) && 
+               (pos > 0 || len(turns) >= antID-1) {
+                
+                // Move ant to next room
+                if pos > 0 {
+                    // Clear previous room
+                    prevRoom := path[pos]
+                    roomOccupancy[prevRoom] = 0
+                }
+                
+                // Update ant position
+                antPositions[antID]++
+                pos++
+                
+                // Update room occupancy
+                if nextRoom != colony.EndRoom {
+                    roomOccupancy[nextRoom] = antID
+                } else {
+                    // Ant reached the end
+                    antsFinished++
+                }
+                
+                // Record move
+                moves = append(moves, fmt.Sprintf("L%d-%s", antID, nextRoom))
+            }
+        }
+        
+        // Add moves for this turn
+        if len(moves) > 0 {
+            turns = append(turns, moves)
+        }
+    }
+    
+    return turns
+}`,
+    };
+    
+    // Current visualization state
+    let currentExample = 'simple';
+    let animationState = {
+      isPlaying: false,
+      currentTurn: 0,
+      speed: 2,
+      timer: null
+    };
+    
+    // DOM elements
+    const colonyVisualization = document.getElementById('colony-visualization');
+    const colonyCode = document.getElementById('colony-code');
+    const antsCountElement = document.getElementById('ants-count');
+    const roomsCountElement = document.getElementById('rooms-count');
+    const pathsCountElement = document.getElementById('paths-count');
+    const turnsCountElement = document.getElementById('turns-count');
+    const optimalPathsElement = document.getElementById('optimal-paths');
+    const allTurnsElement = document.getElementById('all-turns');
+    const currentTurnElement = document.getElementById('current-turn');
+    const turnMovesElement = document.getElementById('turn-moves');
+    const codeContentElement = document.getElementById('code-content');
+    
+    // Initialize the visualization
+    function initializeExample(exampleName) {
+      const example = examples[exampleName];
+      
+      // Update colony code
+      colonyCode.textContent = example.code;
+      
+      // Update metrics
+      antsCountElement.textContent = example.metrics.ants;
+      roomsCountElement.textContent = example.metrics.rooms;
+      pathsCountElement.textContent = example.metrics.paths;
+      turnsCountElement.textContent = example.metrics.turns;
+      
+      // Update optimal paths
+      let pathsHTML = '';
+      example.paths.forEach((path, index) => {
+        pathsHTML += `<p>Path ${index + 1}: ${path.join(' → ')} (length: ${path.length - 1})</p>`;
+      });
+      optimalPathsElement.innerHTML = pathsHTML;
+      
+      // Update turns display
+      allTurnsElement.innerHTML = '';
+      example.turns.forEach(turn => {
+        const turnElement = document.createElement('div');
+        turnElement.className = 'turn-box';
+        turnElement.innerHTML = `
+          <div class="turn-title">Turn ${turn.turn}:</div>
+          <div class="turn-moves">${turn.moves.join(' ')}</div>
+        `;
+        allTurnsElement.appendChild(turnElement);
+      });
+      
+      // Reset animation state
+      animationState.currentTurn = 0;
+      animationState.isPlaying = false;
+      if (animationState.timer) {
+        clearInterval(animationState.timer);
+        animationState.timer = null;
+      }
+      
+      // Initialize visualization
+      colonyVisualization.innerHTML = '';
+      
+      // Draw rooms
+      example.rooms.forEach(room => {
+        const roomElement = document.createElement('div');
+        roomElement.className = 'room';
+        if (room.isStart) roomElement.classList.add('start');
+        if (room.isEnd) roomElement.classList.add('end');
+        roomElement.textContent = room.name;
+        roomElement.style.left = `${room.x}px`;
+        roomElement.style.top = `${room.y}px`;
+        colonyVisualization.appendChild(roomElement);
+      });
+      
+      // Draw connections with canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = colonyVisualization.clientWidth;
+      canvas.height = colonyVisualization.clientHeight;
+      canvas.style.position = 'absolute';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.zIndex = '5';
+      colonyVisualization.appendChild(canvas);
+      
+      const ctx = canvas.getContext('2d');
+      
+      // Draw regular connections
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 2;
+      
+      example.connections.forEach(conn => {
+        const fromRoom = example.rooms.find(r => r.name === conn.from);
+        const toRoom = example.rooms.find(r => r.name === conn.to);
+        
+        if (fromRoom && toRoom) {
+          ctx.beginPath();
+          ctx.moveTo(fromRoom.x, fromRoom.y);
+          ctx.lineTo(toRoom.x, toRoom.y);
+          ctx.stroke();
+        }
+      });
+      
+      // Draw optimal paths with different colors
+      example.paths.forEach((path, index) => {
+        const hue = (index * 60) % 360;
+        ctx.strokeStyle = `hsla(${hue}, 100%, 60%, 0.7)`;
+        ctx.lineWidth = 3;
+        
+        for (let i = 0; i < path.length - 1; i++) {
+          const fromRoom = example.rooms.find(r => r.name === path[i]);
+          const toRoom = example.rooms.find(r => r.name === path[i + 1]);
+          
+          if (fromRoom && toRoom) {
+            ctx.beginPath();
+            ctx.moveTo(fromRoom.x, fromRoom.y);
+            ctx.lineTo(toRoom.x, toRoom.y);
+            ctx.stroke();
+          }
+        }
+      });
+      
+      // Create ants (initially hidden)
+      for (let i = 1; i <= example.metrics.ants; i++) {
+        const antElement = document.createElement('div');
+        antElement.className = 'ant';
+        antElement.id = `ant-${i}`;
+        antElement.textContent = i;
+        
+        // Assign color based on path
+        const pathIndex = 0; // Will be updated during animation
+        const hue = (pathIndex * 60) % 360;
+        antElement.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+        
+        // Initially hide all ants
+        antElement.style.display = 'none';
+        
+        colonyVisualization.appendChild(antElement);
+      }
+      
+      // Display initial turn
+      updateTurnDisplay();
+    }
+    
+    // Update the visualization for the current turn
+    function updateVisualization() {
+      const example = examples[currentExample];
+      
+      // If no turns yet, reset all ants
+      if (animationState.currentTurn === 0) {
+        for (let i = 1; i <= example.metrics.ants; i++) {
+          const antElement = document.getElementById(`ant-${i}`);
+          if (antElement) {
+            antElement.style.display = 'none';
+          }
+        }
+        
+        updateTurnDisplay();
+        return;
+      }
+      
+      // Get all moves up to the current turn
+      const allMovesMade = [];
+      for (let i = 0; i < animationState.currentTurn; i++) {
+        allMovesMade.push(...example.turns[i].moves);
+      }
+      
+      // Track ant positions
+      const antPositions = {};
+      
+      // Process all moves to determine current ant positions
+      allMovesMade.forEach(moveStr => {
+        const [antName, roomName] = moveStr.split('-');
+        const antID = parseInt(antName.replace('L', ''));
+        antPositions[antID] = roomName;
+      });
+      
+      // Update ant positions
+      for (let i = 1; i <= example.metrics.ants; i++) {
+        const antElement = document.getElementById(`ant-${i}`);
+        if (!antElement) continue;
+        
+        if (antPositions[i]) {
+          // Find room position
+          const room = example.rooms.find(r => r.name === antPositions[i]);
+          if (room) {
+            antElement.style.display = 'flex';
+            antElement.style.left = `${room.x}px`;
+            antElement.style.top = `${room.y}px`;
+            
+            // Find which path this ant is on
+            const pathIndex = example.paths.findIndex(path => path.includes(antPositions[i]));
+            if (pathIndex !== -1) {
+              const hue = (pathIndex * 60) % 360;
+              antElement.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            }
+          }
+        } else {
+          antElement.style.display = 'none';
+        }
+      }
+      
+      // Update turn display
+      updateTurnDisplay();
+    }
+    
+    // Update the current turn display
+    function updateTurnDisplay() {
+      const example = examples[currentExample];
+      
+      // Highlight current turn in all turns display
+      const turnBoxes = allTurnsElement.querySelectorAll('.turn-box');
+      turnBoxes.forEach((box, index) => {
+        if (index === animationState.currentTurn - 1) {
+          box.style.backgroundColor = 'rgba(14, 165, 233, 0.2)';
+        } else {
+          box.style.backgroundColor = '';
+        }
+      });
+      
+      // Update current turn display
+      if (animationState.currentTurn === 0) {
+        turnMovesElement.textContent = 'Starting position';
+      } else {
+        const currentTurnData = example.turns[animationState.currentTurn - 1];
+        turnMovesElement.textContent = currentTurnData.moves.join(' ');
+      }
+    }
+    
+    // Play animation
+    function playAnimation() {
+      if (animationState.isPlaying) return;
+      
+      animationState.isPlaying = true;
+      document.getElementById('play-button').innerHTML = '<i class="fas fa-pause"></i>';
+      
+      animationState.timer = setInterval(() => {
+        const example = examples[currentExample];
+        
+        if (animationState.currentTurn < example.turns.length) {
+          animationState.currentTurn++;
+          updateVisualization();
+        } else {
+          stopAnimation();
+        }
+      }, 1000 / animationState.speed);
+    }
+    
+    // Stop animation
+    function stopAnimation() {
+      if (!animationState.isPlaying) return;
+      
+      clearInterval(animationState.timer);
+      animationState.timer = null;
+      animationState.isPlaying = false;
+      document.getElementById('play-button').innerHTML = '<i class="fas fa-play"></i>';
+    }
+    
+    // Event listeners
+    document.querySelectorAll('.example-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const exampleName = this.getAttribute('data-example');
+        
+        // Update active button
+        document.querySelectorAll('.example-button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Update current example
+        currentExample = exampleName;
+        
+        // Stop any ongoing animation
+        stopAnimation();
+        
+        // Initialize the new example
+        initializeExample(exampleName);
+      });
+    });
+    
+    document.querySelectorAll('.code-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.code-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Update code content
+        codeContentElement.innerHTML = `<pre>${codeSnippets[tabName]}</pre>`;
+      });
+    });
+    
+    // Control buttons
+    document.getElementById('reset-button').addEventListener('click', function() {
+      stopAnimation();
+      animationState.currentTurn = 0;
+      updateVisualization();
+    });
+    
+    document.getElementById('play-button').addEventListener('click', function() {
+      if (animationState.isPlaying) {
+        stopAnimation();
+      } else {
+        playAnimation();
+      }
+    });
+    
+    document.getElementById('next-button').addEventListener('click', function() {
+      stopAnimation();
+      const example = examples[currentExample];
+      
+      if (animationState.currentTurn < example.turns.length) {
+        animationState.currentTurn++;
+        updateVisualization();
+      }
+    });
+    
+    document.getElementById('speed-select').addEventListener('change', function() {
+      animationState.speed = parseFloat(this.value);
+      
+      if (animationState.isPlaying) {
+        stopAnimation();
+        playAnimation();
+      }
+    });
+    
+    // Initialize first example
+    initializeExample(currentExample);
+    
+    // Initialize first code tab
+    codeContentElement.innerHTML = `<pre>${codeSnippets.parsing}</pre>`;
+  </script>
+</body>
+</html>

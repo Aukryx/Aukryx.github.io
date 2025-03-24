@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris Optimizer Demo | Aukryx</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-blue: #0ea5e9;
+      --accent-pink: #ec4899;
+      --grid-size: 4;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      padding-top: 0; /* Remove any top padding if present */
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      padding-top: 2rem;
+      margin-top: 1rem; /* Add space after the nav */
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--bg-secondary);
+      position: relative; /* Ensure nav doesn't overlap content */
+      z-index: 10;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-blue);
+    }
+    
+    .back-button {
+      padding: 0.5rem 1rem;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background-color: var(--accent-blue);
+      color: white;
+    }
+    
+    h1, h2, h3 {
+      color: var(--text-primary);
+      margin-top: 0;
+    }
+    
+    h1 {
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding-top: 1rem;
+      font-size: 2.5rem;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .demo-description {
+      margin-bottom: 1.5rem;
+    }
+    
+    .demo-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .input-section, .output-section {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.2);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      resize: vertical;
+    }
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 221, 255, 0.3);
+    }
+    
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--grid-size), 1fr);
+      gap: 4px;
+      margin: 1rem 0;
+      max-width: 500px;
+    }
+    
+    .grid-cell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .metric {
+      background-color: rgba(0, 221, 255, 0.1);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 221, 255, 0.2);
+    }
+    
+    .examples {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .examples h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: var(--accent-blue);
+    }
+    
+    .examples div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .example-button {
+      padding: 0.5rem 1rem;
+      background-color: rgba(0, 221, 255, 0.1);
+      color: var(--text-primary);
+      border: 1px solid rgba(0, 221, 255, 0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .example-button:hover {
+      background-color: rgba(0, 221, 255, 0.2);
+    }
+    
+    .error {
+      color: #ef4444;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid var(--accent-blue);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin: 1rem auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fadeIn {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      background: rgba(0, 221, 255, 0.1);
+      border-left: 4px solid var(--accent-blue);
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .disclaimer i {
+      color: var(--accent-blue);
+      font-size: 1.5rem;
+      margin-top: 0.2rem;
+    }
+
+    .disclaimer p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Examples Container */
+    .examples-container {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .examples-container h3 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.75rem;
+      color: var(--accent-blue);
+    }
+
+    .examples-container h3 i {
+      margin-right: 0.5rem;
+    }
+
+    /* Tabs */
+    .example-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.75rem 1.5rem;
+      margin-right: 0.5rem;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      bottom: -1px;
+    }
+
+    .tab-button:hover {
+      color: var(--text-primary);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-button.active {
+      color: var(--accent-blue);
+      border-bottom: 2px solid var(--accent-blue);
+      background-color: rgba(0, 221, 255, 0.05);
+    }
+
+    /* Example Panels */
+    .example-panels {
+      position: relative;
+    }
+
+    .example-panel {
+      display: none;
+    }
+
+    .example-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Example Grid */
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Example Cards */
+    .example-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .example-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, rgba(0, 221, 255, 0.1), rgba(236, 72, 153, 0.1));
+      border-color: rgba(0, 221, 255, 0.3);
+    }
+
+    .example-card span {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    /* Example Previews */
+    .example-preview {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .piece-count {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-blue);
+    }
+
+    /* Tetromino Previews */
+    .square-preview {
+      background: linear-gradient(135deg, rgba(255, 82, 82, 0.2), rgba(255, 82, 82, 0.1));
+      position: relative;
+    }
+
+    .square-preview:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 82, 82, 0.3);
+      border: 1px solid rgba(255, 82, 82, 0.6);
+      border-radius: 4px;
+    }
+
+    .l-preview {
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 152, 0, 0.1));
+      position: relative;
+    }
+
+    .l-preview:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      clip-path: polygon(0 0, 66% 0, 66% 66%, 100% 66%, 100% 100%, 0 100%);
+      background-color: rgba(255, 152, 0, 0.3);
+      border: 1px solid rgba(255, 152, 0, 0.6);
+      border-radius: 4px;
+    }
+
+    .t-preview {
+      background: linear-gradient(135deg, rgba(255, 235, 59, 0.2), rgba(255, 235, 59, 0.1));
+      position: relative;
+    }
+
+    .t-preview:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 66% 33%, 66% 100%, 33% 100%, 33% 33%, 0 33%);
+      background-color: rgba(255, 235, 59, 0.3);
+      border: 1px solid rgba(255, 235, 59, 0.6);
+      border-radius: 4px;
+    }
+
+    .i-preview {
+      background: linear-gradient(135deg, rgba(38, 198, 218, 0.2), rgba(38, 198, 218, 0.1));
+      position: relative;
+    }
+
+    .i-preview:after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 10px;
+      background-color: rgba(38, 198, 218, 0.3);
+      border: 1px solid rgba(38, 198, 218, 0.6);
+      border-radius: 4px;
+    }
+
+    .z-preview {
+      background: linear-gradient(135deg, rgba(171, 71, 188, 0.2), rgba(171, 71, 188, 0.1));
+      position: relative;
+    }
+
+    .z-preview:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 20px;
+      clip-path: polygon(0 0, 50% 0, 50% 50%, 100% 50%, 100% 100%, 50% 100%, 50% 50%, 0 50%);
+      background-color: rgba(171, 71, 188, 0.3);
+      border: 1px solid rgba(171, 71, 188, 0.6);
+      border-radius: 4px;
+    }
+
+    /* Main button styling update */
+    #solve-button {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+
+    .example-card.active-card {
+      background: linear-gradient(135deg, rgba(0, 221, 255, 0.2), rgba(236, 72, 153, 0.2));
+      border-color: var(--accent-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Aukryx</div>
+    <a href="portfolio.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
+  
+  <div class="container">
+    <h1>Tetris Optimizer</h1>
+    
+    <div class="demo-description">
+      <p>This algorithm efficiently arranges tetromino pieces into the smallest possible square grid using a backtracking approach.</p>
+      <p>Enter tetromino shapes below or select from the examples. Each tetromino must have exactly 4 blocks ('#') that are connected.</p>
+    </div>
+    
+    <div class="disclaimer">
+      <i class="fas fa-info-circle"></i>
+      <p><strong>Performance Note:</strong> This browser-based demo uses JavaScript for accessibility and runs 10-20x slower than the original Go implementation. The actual algorithm in Go solves these puzzles in milliseconds rather than seconds.</p>
+    </div>
+    
+    <div class="demo-container">
+      <div class="input-section">
+        <h2>Input Tetrominos</h2>
+        <p>Format: Use '#' for blocks and '.' for empty spaces. Each tetromino should be a 4x4 grid.</p>
+        <p><strong>Select an example below or create your own:</strong></p>
+        
+        <div class="examples-container">
+          <h3><i class="fas fa-th"></i> Example Tetrominos</h3>
+          
+          <div class="example-tabs">
+            <button class="tab-button active" data-tab="single">Single Pieces</button>
+            <button class="tab-button" data-tab="medium">Medium (3-4 Pieces)</button>
+            <button class="tab-button" data-tab="complex">Complex (7-10 Pieces)</button>
+          </div>
+          
+          <div class="example-panels">
+            <div class="example-panel active" id="single-panel">
+              <div class="example-grid">
+                <button class="example-card" data-example="simple">
+                  <div class="example-preview square-preview"></div>
+                  <span>Square</span>
+                </button>
+                <button class="example-card" data-example="lShape">
+                  <div class="example-preview l-preview"></div>
+                  <span>L Shape</span>
+                </button>
+                <button class="example-card" data-example="tShape">
+                  <div class="example-preview t-preview"></div>
+                  <span>T Shape</span>
+                </button>
+                <button class="example-card" data-example="iShape">
+                  <div class="example-preview i-preview"></div>
+                  <span>I Shape</span>
+                </button>
+                <button class="example-card" data-example="zShape">
+                  <div class="example-preview z-preview"></div>
+                  <span>Z Shape</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="example-panel" id="medium-panel">
+              <div class="example-grid">
+                <button class="example-card" data-example="medium">
+                  <div class="example-preview">
+                    <span class="piece-count">4</span>
+                  </div>
+                  <span>Standard Set</span>
+                </button>
+                <button class="example-card" data-example="medium2">
+                  <div class="example-preview">
+                    <span class="piece-count">3</span>
+                  </div>
+                  <span>Mixed Set</span>
+                </button>
+                <button class="example-card" data-example="medium3">
+                  <div class="example-preview">
+                    <span class="piece-count">4</span>
+                  </div>
+                  <span>Corner Set</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="example-panel" id="complex-panel">
+              <div class="example-grid">
+                <button class="example-card" data-example="complex">
+                  <div class="example-preview">
+                    <span class="piece-count">7</span>
+                  </div>
+                  <span>Standard Pack</span>
+                </button>
+                <button class="example-card" data-example="complex2">
+                  <div class="example-preview">
+                    <span class="piece-count">8</span>
+                  </div>
+                  <span>Extended Pack</span>
+                </button>
+                <button class="example-card" data-example="challenge">
+                  <div class="example-preview">
+                    <span class="piece-count">10</span>
+                  </div>
+                  <span>Challenge Pack</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <textarea id="tetrominos-input" placeholder="Enter tetrominos here..."></textarea>
+        
+        <button id="solve-button">Solve Puzzle</button>
+        <div class="loader" id="loader"></div>
+      </div>
+      
+      <div class="output-section">
+        <h2>Solution</h2>
+        <div id="error-message" class="error"></div>
+        
+        <div id="result-container" style="display: none;">
+          <div class="metrics">
+            <div class="metric">
+              <strong>Grid Size:</strong> <span id="grid-size">0x0</span>
+            </div>
+            <div class="metric">
+              <strong>Pieces Placed:</strong> <span id="pieces-count">0</span>
+            </div>
+            <div class="metric">
+              <strong>Execution Time:</strong> <span id="execution-time">0ms</span>
+            </div>
+          </div>
+          
+          <div id="result-grid" class="result-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="tetris-optimizer-js.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const optimizer = new TetrisOptimizer();
+      const inputArea = document.getElementById('tetrominos-input');
+      const solveButton = document.getElementById('solve-button');
+      const resultContainer = document.getElementById('result-container');
+      const resultGrid = document.getElementById('result-grid');
+      const gridSizeElement = document.getElementById('grid-size');
+      const piecesCountElement = document.getElementById('pieces-count');
+      const executionTimeElement = document.getElementById('execution-time');
+      const errorMessage = document.getElementById('error-message');
+      const loader = document.getElementById('loader');
+      
+      // Sample examples
+      const examples = {
+  simple: "....\n....\n.##.\n.##.",
+  lShape: "....\n.#..\n.#..\n.##.",
+  tShape: "....\n....\n###.\n.#..",
+  iShape: "...#\n...#\n...#\n...#",
+  zShape: "....\n....\n.##.\n##..",
+  medium: "....\n....\n.##.\n.##.\n\n....\n..#.\n.##.\n.#..\n\n...#\n...#\n...#\n...#\n\n....\n....\n.###\n...#",
+  medium2: "....\n....\n.##.\n.##.\n\n....\n..##\n.##.\n....\n\n....\n....\n###.\n..#.",
+  medium3: "....\n....\n##..\n##..\n\n....\n....\n.##.\n.##.\n\n....\n....\n##..\n.##.\n\n....\n....\n.##.\n##..",
+  complex: "....\n....\n.##.\n.##.\n\n....\n..#.\n.##.\n.#..\n\n...#\n...#\n...#\n...#\n\n....\n....\n.###\n...#\n\n....\n....\n..##\n.##.\n\n....\n....\n.##.\n.##.\n\n....\n....\n.###\n.#..",
+  complex2: "....\n....\n.##.\n.##.\n\n....\n..#.\n.##.\n.#..\n\n...#\n...#\n...#\n...#\n\n....\n....\n.###\n...#\n\n....\n....\n..##\n.##.\n\n....\n....\n.##.\n.##.\n\n....\n....\n.###\n.#..\n\n....\n....\n##..\n.##.",
+  challenge: "....\n....\n.##.\n.##.\n\n....\n..#.\n.##.\n.#..\n\n...#\n...#\n...#\n...#\n\n....\n....\n.###\n...#\n\n....\n....\n..##\n.##.\n\n....\n....\n.##.\n.##.\n\n....\n....\n.###\n.#..\n\n....\n....\n##..\n.##.\n\n....\n.##.\n##..\n....\n\n....\n....\n###.\n.#.."
+};
+      
+      // Color mapping for letters
+      const colorMap = {
+        'A': '#FF5252', 'B': '#FF9800', 'C': '#FFEB3B', 'D': '#66BB6A',
+        'E': '#26C6DA', 'F': '#5C6BC0', 'G': '#AB47BC', 'H': '#EC407A',
+        'I': '#78909C', 'J': '#8D6E63', 'K': '#4DD0E1', 'L': '#AED581'
+      };
+      
+      // Load example buttons
+      document.querySelectorAll('.example-button').forEach(button => {
+        button.addEventListener('click', function() {
+          const exampleName = this.getAttribute('data-example');
+          inputArea.value = examples[exampleName];
+        });
+      });
+      
+      // Solve button click handler
+      solveButton.addEventListener('click', function() {
+        // Reset UI
+        errorMessage.textContent = '';
+        resultContainer.style.display = 'none';
+        loader.style.display = 'block';
+        
+        // Get input
+        const input = inputArea.value.trim();
+        if (!input) {
+          errorMessage.textContent = 'Please enter tetrominos';
+          loader.style.display = 'none';
+          return;
+        }
+        
+        // Use setTimeout to allow UI to update before computation
+        setTimeout(() => {
+          const startTime = performance.now();
+          
+          try {
+            // Solve the puzzle
+            const result = optimizer.solve(input);
+            const endTime = performance.now();
+            const executionTime = endTime - startTime;
+            
+            // Display result
+            if (result.success) {
+              displaySolution(result.grid, result.size, result.piecesCount, executionTime);
+            } else {
+              errorMessage.textContent = result.error || 'Failed to find a solution';
+              loader.style.display = 'none';
+            }
+          } catch (error) {
+            errorMessage.textContent = `Error: ${error.message}`;
+            console.error(error);
+            loader.style.display = 'none';
+          }
+        }, 100);
+      });
+      
+      // Display the solution
+      function displaySolution(grid, size, piecesCount, executionTime) {
+        // Update metrics
+        gridSizeElement.textContent = `${size}x${size}`;
+        piecesCountElement.textContent = piecesCount;
+        executionTimeElement.textContent = `${executionTime.toFixed(2)}ms`;
+        
+        // Clear previous grid
+        resultGrid.innerHTML = '';
+        
+        // Set grid size
+        resultGrid.style.setProperty('--grid-size', size);
+        
+        // Create grid cells
+        for (let y = 0; y < size; y++) {
+          for (let x = 0; x < size; x++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            
+            const letter = grid[y][x];
+            if (letter) {
+              cell.textContent = letter;
+              cell.style.backgroundColor = colorMap[letter] + '33'; // Add transparency
+              cell.style.color = colorMap[letter];
+              cell.style.border = `2px solid ${colorMap[letter]}`;
+            } else {
+              cell.textContent = '.';
+              cell.style.color = 'rgba(255, 255, 255, 0.3)';
+            }
+            
+            resultGrid.appendChild(cell);
+          }
+        }
+        
+        // Show result container
+        resultContainer.style.display = 'block';
+        resultContainer.classList.add('fadeIn');
+        
+        // Hide loader
+        loader.style.display = 'none';
+      }
+      
+      // Load simple example by default
+      inputArea.value = examples.simple;
+
+      // Add this to the script section inside the DOMContentLoaded event listener
+
+      // Tab functionality
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const examplePanels = document.querySelectorAll('.example-panel');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          // Hide all panels
+          examplePanels.forEach(panel => panel.classList.remove('active'));
+          
+          // Show corresponding panel
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(`${tabId}-panel`).classList.add('active');
+        });
+      });
+
+      // Example card functionality
+      document.querySelectorAll('.example-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const exampleName = this.getAttribute('data-example');
+          inputArea.value = examples[exampleName];
+          
+          // Add active class to the clicked card
+          document.querySelectorAll('.example-card').forEach(c => 
+            c.classList.remove('active-card'));
+          this.classList.add('active-card');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

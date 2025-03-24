@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net-Cat TCP Chat Server | Aukryx</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-blue: #0ea5e9;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-yellow: #f59e0b;
+      --accent-purple: #8b5cf6;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    h1, h2 {
+      color: var(--accent-blue);
+    }
+    
+    h3 {
+      color: var(--text-primary);
+    }
+    
+    .visualization {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Special styling for vertical video */
+    .video-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto 1.5rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
+    
+    video {
+      max-width: 85%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .video-timestamps {
+      background-color: rgba(14, 165, 233, 0.1);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .video-timestamps ul {
+      list-style-type: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .video-timestamps li {
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .video-timestamps li:hover {
+      background-color: rgba(14, 165, 233, 0.2);
+      cursor: pointer;
+    }
+    
+    .explanation {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .features {
+      margin-top: 2rem;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .feature-card {
+      background-color: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border-left: 3px solid;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-card.chat {
+      border-color: var(--accent-blue);
+    }
+    
+    .feature-card.command {
+      border-color: var(--accent-green);
+    }
+    
+    .feature-card.multi {
+      border-color: var(--accent-yellow);
+    }
+    
+    .feature-card.logs {
+      border-color: var(--accent-purple);
+    }
+    
+    .feature-card h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .feature-card h3 i {
+      font-size: 1.25rem;
+    }
+    
+    .chat h3 i {
+      color: var(--accent-blue);
+    }
+    
+    .command h3 i {
+      color: var(--accent-green);
+    }
+    
+    .multi h3 i {
+      color: var(--accent-yellow);
+    }
+    
+    .logs h3 i {
+      color: var(--accent-purple);
+    }
+    
+    .technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    
+    .technology {
+      background-color: rgba(14, 165, 233, 0.2);
+      color: var(--accent-blue);
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .technical-highlights {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .technical-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .technical-card {
+      background-color: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border-top: 3px solid var(--accent-blue);
+    }
+    
+    .try-it-yourself {
+      background-color: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .try-it-yourself pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .back-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent-blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover {
+      background-color: #0284c7;
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      video {
+        max-width: 95%;
+      }
+      
+      .video-timestamps ul {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Net-Cat TCP Chat Server</h1>
+    
+    <div class="visualization">
+      <h2>System Demonstration</h2>
+      <p>Watch how the Net-Cat TCP Chat server enables real-time messaging between multiple users:</p>
+      
+      <div class="video-container">
+        <video controls>
+          <source src="net-cat-demo.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      <div class="video-timestamps">
+        <h3>Video Guide</h3>
+        <p>Click on a timestamp to jump to that section of the video:</p>
+        <ul id="timestamps">
+          <li data-time="0"><strong>0:00 - 0:15</strong> - Building and starting the server</li>
+          <li data-time="15"><strong>0:15 - 0:33</strong> - Connection to the server</li>
+          <li data-time="33"><strong>0:33 - 0:50</strong> - Casual talking between users and admin</li>
+          <li data-time="50"><strong>0:50 - 1:04</strong> - Using the /rename command</li>
+          <li data-time="64"><strong>1:04 - 1:19</strong> - Using the /color command</li>
+          <li data-time="79"><strong>1:19 - 1:36</strong> - More conversation between users</li>
+          <li data-time="96"><strong>1:36 - 1:52</strong> - Showing server logs</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="explanation">
+      <h2>About The Project</h2>
+      <p>Net-Cat is a TCP-based chat server written in Go that allows multiple users to connect and communicate in real-time through a terminal interface. The server handles concurrent connections, broadcasts messages to all connected clients, and provides special commands for customization.</p>
+      
+      <div class="technologies">
+        <span class="technology">Go</span>
+        <span class="technology">TCP/IP</span>
+        <span class="technology">Concurrency</span>
+        <span class="technology">Network Programming</span>
+        <span class="technology">Terminal UI</span>
+      </div>
+      
+      <div class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+          <div class="feature-card chat">
+            <h3><i class="fas fa-comments"></i> Real-time Messaging</h3>
+            <p>Messages are broadcast instantly to all connected users, creating a seamless chat experience through the terminal.</p>
+          </div>
+          
+          <div class="feature-card command">
+            <h3><i class="fas fa-terminal"></i> Chat Commands</h3>
+            <p>Special commands like /rename and /color allow users to personalize their chat experience without leaving the session.</p>
+          </div>
+          
+          <div class="feature-card multi">
+            <h3><i class="fas fa-users"></i> Multi-User Support</h3>
+            <p>The server handles multiple concurrent connections, ensuring all users can chat simultaneously without performance issues.</p>
+          </div>
+          
+          <div class="feature-card logs">
+            <h3><i class="fas fa-list"></i> Connection Logging</h3>
+            <p>Comprehensive server logs track connections, disconnections, and user activities for monitoring and debugging.</p>
+          </div>
+          
+          <div class="feature-card chat">
+            <h3><i class="fas fa-user-astronaut"></i> Custom ASCII Art</h3>
+            <p>A distinctive ASCII cat greets users upon connection, adding personality to the chat experience.</p>
+          </div>
+          
+          <div class="feature-card multi">
+            <h3><i class="fas fa-bell"></i> Join/Leave Notifications</h3>
+            <p>Users are notified when someone joins or leaves the chat, maintaining awareness of active participants.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="technical-highlights">
+      <h2>Technical Implementation</h2>
+      <p>This project demonstrates several key programming concepts and techniques:</p>
+      
+      <div class="technical-grid">
+        <div class="technical-card">
+          <h3>Concurrent Network Programming</h3>
+          <p>Uses Go's goroutines and channels to handle multiple client connections simultaneously without blocking operations.</p>
+        </div>
+        
+        <div class="technical-card">
+          <h3>TCP Socket Management</h3>
+          <p>Implements a TCP server that listens for connections, manages handshakes, and maintains persistent connections with clients.</p>
+        </div>
+        
+        <div class="technical-card">
+          <h3>Broadcast Messaging</h3>
+          <p>Messages from any client are efficiently broadcast to all other connected clients, ensuring everyone sees all communications.</p>
+        </div>
+        
+        <div class="technical-card">
+          <h3>Command Parsing</h3>
+          <p>Implements a simple but effective command parser that handles special inputs like /rename and /color with appropriate validations.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="try-it-yourself">
+      <h2>Try It Yourself</h2>
+      <p>Want to test Net-Cat on your own machine? Follow these simple steps:</p>
+      
+      <pre><code># Clone the repository
+git clone https://github.com/Aukryx/net-cat.git
+
+# Navigate to the project directory
+cd net-cat
+
+# Build the project
+go build -o TCPChat
+
+# Run the server (default port is 8989)
+./TCPChat [port]
+
+# In another terminal, connect using netcat
+nc localhost 8989
+
+# Try the following commands in the chat:
+# /rename NewName - Change your username
+# /color blue - Change your text color (options: red, green, yellow, blue, magenta, cyan, white)</code></pre>
+    </div>
+    
+    <a href="portfolio.html" class="back-button">Back to Portfolio</a>
+  </div>
+  
+  <script>
+    // Script to make timestamp links work
+    document.querySelectorAll('#timestamps li').forEach(item => {
+      item.addEventListener('click', function() {
+        const seconds = this.getAttribute('data-time');
+        const video = document.querySelector('video');
+        if (video) {
+          video.currentTime = seconds;
+          video.play();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Aukryx</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo">Thomas Lambert</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div class="home-bg"></div>
+            <div class="home-content">
+                <h1 class="home-title">Hi, I'm a Full Stack Developer</h1>
+                <p class="home-subtitle">Passionate about building logical and scalable solutions</p>
+                <p class="home-description">
+                    Welcome to my creative space where I turn ideas into elegant and functional web applications. 
+                    I specialize in both frontend and backend development, with a knack for solving complex algorithms.
+                </p>
+                <a href="#projects" class="project-view">See My Projects</a>
+            </div>
+            <div class="tech-stack">
+                <div class="tech-stack-inner">
+                    <div class="tech-item">
+                        <i class="fab fa-html5" style="color: #e34c26;"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-css3-alt" style="color: #264de4;"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-js" style="color: #f0db4f;"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-react" style="color: #61dafb;"></i>
+                        <span>React</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-node-js" style="color: #3c873a;"></i>
+                        <span>Node.js</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-python" style="color: #3776ab;"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-git-alt" style="color: #f05032;"></i>
+                        <span>Git</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-docker" style="color: #2496ed;"></i>
+                        <span>Docker</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-code" style="color: #555;"></i>
+                        <span>C</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-java" style="color: #007396;"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-windows" style="color: #512bd4;"></i>
+                        <span>.NET</span>
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Golang" style="width: 40px; height: 40px;">
+                        <span>Golang</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database" style="color: #003b57;"></i>
+                        <span>SQLite</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="assets/profile_picture.jpeg" alt="Profile Image">
+                </div>
+                <div class="about-content">
+                    <h2 class="about-title">About Me</h2>
+                    <p class="about-text">
+                        Currently training at Zone01, I am looking for an apprenticeship in software development. 
+                        My unique background, combining varied professional experiences and academic training, 
+                        has allowed me to develop strong adaptability and sharp analytical skills.
+                    </p>
+                    <div class="about-tabs">
+                        <button class="tab-button active" data-tab="skills">Skills</button>
+                        <button class="tab-button" data-tab="experience">Experience</button>
+                        <button class="tab-button" data-tab="education">Education</button>
+                    </div>
+                    <div class="tab-content active" id="skills">
+                        <div class="skills-container">
+                            <!-- Primary Skills -->
+                            <h3 class="skills-category">Primary Skills</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">Golang</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 93%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">HTML</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 87%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">JavaScript</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 92%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Secondary Skills -->
+                            <h3 class="skills-category">Secondary Skills</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">Git</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 82%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">SQLite</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">CSS</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">React</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Intermediate Skills -->
+                            <h3 class="skills-category">Intermediate Skills</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">Docker</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 60%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">C</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 58%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Learning Skills -->
+                            <h3 class="skills-category">Currently Learning</h3>
+                            <div class="skill-item">
+                                <div class="skill-name">Python</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 45%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">Java</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 40%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-name">.NET</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 35%; background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="experience">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Civic Service - Ecole Joliot Curie 1</h3>
+                                    <p class="timeline-date">2022 - 2023, Saint-Etienne-du-Rouvray</p>
+                                    <p>Educational support, project management and teamwork. Development of communication skills.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Cold Room Installer - Chabriet Isolation</h3>
+                                    <p class="timeline-date">2019 - 2020, Agen</p>
+                                    <p>Installation and maintenance of cold rooms in industrial facilities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="education">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Developer Training - Zone01</h3>
+                                    <p class="timeline-date">2024 - Present, Rouen</p>
+                                    <p>Full-stack development training with focus on practical projects and innovative technologies.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>LLCER License - Faculty of International Affairs</h3>
+                                    <p class="timeline-date">2020 - 2022, Le Havre</p>
+                                    <p>Foreign Languages, Literatures and Civilizations program with focus on international communication.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="projects-header">
+                <h2 class="section-title">My Projects</h2>
+                <div class="projects-filter">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="web">Web</button>
+                    <button class="filter-button" data-filter="app">Applications</button>
+                    <button class="filter-button" data-filter="algorithm">Algorithms</button>
+                </div>
+            </div>
+            <div class="projects-grid">
+                <!-- Real-Time Forum -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="/assets/Real_Time.png" alt="Real-Time Forum">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="forum">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Real-Time Forum</h3>
+                        <p class="project-category">Web Development</p>
+                        <p class="project-description">A single-page application forum with real-time features using WebSockets.</p>
+                    </div>
+                </div>
+                
+                <!-- Make your game -->
+                <div class="project-card" data-category="app">
+                    <div class="project-image">
+                        <img src="/assets/Make_you_game.png" alt="Make your game">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="game">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Make Your Game</h3>
+                        <p class="project-category">Game Development</p>
+                        <p class="project-description">A comprehensive game development project creating a fully-featured gaming experience from scratch, including engine creation and user interface design.</p>
+                    </div>
+                </div>
+                
+                <!-- Azertype -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="/assets/azertype.png" alt="Azertype">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="azertype">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AzerType</h3>
+                        <p class="project-category">Web Application</p>
+                        <p class="project-description">An interactive web application designed to help users improve their typing speed, with additional features to enhance the user experience.</p>
+                    </div>
+                </div>
+                
+                <!-- Tetris Optimizer -->
+                <div class="project-card" data-category="algorithm">
+                    <div class="project-image">
+                        <img src="assets/tetris.jpg" alt="Tetris Optimizer">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="tetris">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Tetris Optimizer</h3>
+                        <p class="project-category">Algorithm (Go)</p>
+                        <p class="project-description">A Go program that solves the problem of fitting tetrominos into the smallest possible square grid using a backtracking algorithm.</p>
+                    </div>
+                </div>
+                
+                <!-- ATM-management system -->
+                <div class="project-card" data-category="app">
+                    <div class="project-image">
+                        <img src="/assets/ATM.png" alt="ATM Management System">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="atm">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">ATM Management System</h3>
+                        <p class="project-category">Application (C)</p>
+                        <p class="project-description">A C implementation of an ATM system allowing users to perform various banking operations such as creating accounts and making transactions.</p>
+                    </div>
+                </div>
+                
+                <!-- Lem-in -->
+                <div class="project-card" data-category="algorithm">
+                    <div class="project-image">
+                        <img src="/assets/lem-in.png" alt="Lem-in">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="lemin">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Lem-in Ant Colony Pathfinder</h3>
+                        <p class="project-category">Algorithm (Go)</p>
+                        <p class="project-description">An efficient algorithm to find optimal paths for routing ants through a network of tunnels, avoiding congestion and minimizing turns.</p>
+                    </div>
+                </div>
+
+                <!-- Groupie-Tracker -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="/assets/groupie-tracker.png" alt="Groupie Tracker">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="groupie">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Groupie Tracker</h3>
+                        <p class="project-category">Web Development</p>
+                        <p class="project-description">A website that displays artists and their information using APIs, including search functionality and geolocation.</p>
+                    </div>
+                </div>
+
+                <!-- Net-Cat -->
+                <div class="project-card" data-category="app">
+                    <div class="project-image">
+                        <img src="/assets/netcat.png" alt="Net-Cat">
+                        <div class="project-overlay">
+                            <button class="project-view" data-project="netcat">View Details</button>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Net-Cat</h3>
+                        <p class="project-category">Network Application (Go)</p>
+                        <p class="project-description">A simple TCP chat server implemented in Go, allowing multiple users to connect and communicate in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 class="contact-title">Let's discuss about your project</h3>
+                    <p class="contact-text">
+                        Got a project in mind? Feel free to reach me out and let's discuss it.
+                        I'm always looking for new opportunities to collaborate.
+                    </p>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-item-text">Rouen, France</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-item-text">thomaslambert9976@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-item-text">+33 6 13 35 03</div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Aukryx" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/thomas-lambert9976/" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm" action="https://formsubmit.co/thomaslambert9976@gmail.com" method="POST">
+                        <!-- Anti-spam honeypot field -->
+                        <input type="text" name="_honey" style="display:none">
+                        
+                        <!-- Customize redirect -->
+                        <input type="hidden" name="_next" value="https://aukryx.github.io/thank-you.html">
+                        
+                        <!-- Customize subject line -->
+                        <input type="hidden" name="_subject" value="New message from Portfolio">
+                        
+                        <!-- Disable captcha -->
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Subject">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Your Message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83238.2889726344!2d1.0499851582031297!3d49.44122844999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e0de76ca71faab%3A0x3d1cabefa49f93d6!2sRouen%2C%20France!5e0!3m2!1sen!2sus!4v1711126584654!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#home" class="footer-link">Home</a>
+            <a href="#about" class="footer-link">About</a>
+            <a href="#projects" class="footer-link">Projects</a>
+            <a href="#contact" class="footer-link">Contact</a>
+        </div>
+        <p class="footer-copyright">© 2025 - All right reserved</p>
+    </footer>
+
+    <!-- Project Modals -->
+    <!-- Real-Time Forum Modal -->
+    <div class="modal" id="forumModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/Real_Time.png" alt="Real-Time Forum">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Real-Time Forum</h2>
+                <p class="modal-category">Web Development</p>
+                <p class="modal-description">
+                    A single-page application forum with real-time features using WebSockets. This project implements 
+                    a complete forum system with user registration, post creation, commenting, and a real-time 
+                    private messaging system with typing indicators.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">Go</span>
+                    <span class="modal-tech-item">JavaScript</span>
+                    <span class="modal-tech-item">WebSockets</span>
+                    <span class="modal-tech-item">HTML/CSS</span>
+                    <span class="modal-tech-item">SQLite</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/Real-time-forum" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="https://real-time-forum-okht.onrender.com" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-comments"></i> Live Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Application is hosted on Render and may take some time to load on first visit as it wakes up from sleep mode. Go grab a coffee.
+                    </p>
+                    <div class="modal-note">
+                        <i class="fas fa-info-circle"></i> For demonstration purposes, this hosted version has real-time chat features disabled. For the complete experience with WebSockets functionality, please check the GitHub repository and run the application locally.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Make Your Game Modal -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/Make_you_game.png" alt="Make Your Game">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Make Your Game</h2>
+                <p class="modal-category">Game Development</p>
+                <p class="modal-description">
+                    "Make Your Game" is an ambitious game development project that aims to create a fully-featured, 
+                    engaging gaming experience from the ground up. This project encompasses various aspects of game 
+                    development, from core engine creation to user interface design, storytelling, and online functionality.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">JavaScript</span>
+                    <span class="modal-tech-item">HTML5 Canvas</span>
+                    <span class="modal-tech-item">CSS</span>
+                    <span class="modal-tech-item">Game Design</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/Make-your-game" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="https://make-your-game-4uqi.onrender.com" class="modal-link modal-demo-link">
+                        <i class="fas fa-gamepad"></i> Play Game
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Game is hosted on Render and may take a few seconds to load if it hasn't been accessed recently.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AzerType Modal -->
+    <div class="modal" id="azertypeModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/azertype.png" alt="AzerType">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">AzerType</h2>
+                <p class="modal-category">Web Application</p>
+                <p class="modal-description">
+                    AzerType is an interactive web application designed to help users improve their typing speed. 
+                    This project is based on OpenClassrooms' JavaScript course, with additional features to enhance 
+                    the user experience like performance tracking, difficulty levels, and custom text inputs.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">JavaScript</span>
+                    <span class="modal-tech-item">HTML</span>
+                    <span class="modal-tech-item">CSS</span>
+                    <span class="modal-tech-item">Web Storage API</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/Azetype" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="https://azetype.onrender.com" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-keyboard"></i> Try It Live
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Game is hosted on Render and may take a few seconds to load if it hasn't been accessed recently.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tetris Optimizer Modal -->
+    <div class="modal" id="tetrisModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="assets/tetris.jpg" alt="Tetris Optimizer">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Tetris Optimizer</h2>
+                <p class="modal-category">Algorithm (Go)</p>
+                <p class="modal-description">
+                    This Go program solves the problem of fitting a set of tetrominos into the smallest possible 
+                    square grid. It uses a backtracking algorithm to explore all possible configurations and find 
+                    an optimal solution. The program supports various input formats and visualization options.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">Go</span>
+                    <span class="modal-tech-item">Algorithms</span>
+                    <span class="modal-tech-item">Backtracking</span>
+                    <span class="modal-tech-item">Optimization</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/Tetris-Optimizer" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="tetris-optimizer-demo.html" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-puzzle-piece"></i> Interactive Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Try arranging different tetromino pieces and see how the algorithm finds the optimal solution in real-time!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATM Management System Modal -->
+    <div class="modal" id="atmModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/ATM.png" alt="ATM Management System">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">ATM Management System</h2>
+                <p class="modal-category">Application (C)</p>
+                <p class="modal-description">
+                    This is an implementation of an ATM (Automated Teller Machine) system written in C. It allows 
+                    users to perform various banking operations such as creating new accounts, updating account 
+                    information, checking account details, making transactions, deleting accounts, and transferring 
+                    account ownership.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">C</span>
+                    <span class="modal-tech-item">File I/O</span>
+                    <span class="modal-tech-item">Data Structures</span>
+                    <span class="modal-tech-item">Console UI</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/ATM-management-system" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="atm-demo.html" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-desktop"></i> Video Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Watch a complete demonstration of the ATM system featuring user authentication, account management, transactions, and ownership transfer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lem-in Modal -->
+    <div class="modal" id="leminModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/lem-in.png" alt="Lem-in">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Lem-in Ant Colony Pathfinder</h2>
+                <p class="modal-category">Algorithm (Go)</p>
+                <p class="modal-description">
+                    Lem-in is a graph-processing project built in Go that efficiently routes ants through a network 
+                    of tunnels. The algorithm finds the optimal distribution of ants across multiple paths to minimize
+                    the total number of turns while respecting constraints: only one ant per room and each ant moves 
+                    once per turn.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">Go</span>
+                    <span class="modal-tech-item">Graph Theory</span>
+                    <span class="modal-tech-item">Pathfinding</span>
+                    <span class="modal-tech-item">Optimization</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/lem-in" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="lem-in-demo.html" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-project-diagram"></i> Interactive Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> View the algorithm in action with a visual representation of ant movement through the colony.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Groupie Tracker Modal -->
+    <div class="modal" id="groupieModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/groupie-tracker.png" alt="Groupie Tracker">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Groupie Tracker</h2>
+                <p class="modal-category">Web Development</p>
+                <p class="modal-description">
+                    This project involves manipulating APIs to create a dynamic website that displays artists 
+                    and their information. It features filters, a search bar, and geolocation using MapTilers. 
+                    The application fetches data from multiple endpoints and presents it in an intuitive interface,
+                    allowing users to explore artist details, concert locations, and related information.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">Go</span>
+                    <span class="modal-tech-item">HTML/CSS</span>
+                    <span class="modal-tech-item">JavaScript</span>
+                    <span class="modal-tech-item">API Integration</span>
+                    <span class="modal-tech-item">MapTilers</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/groupie-tracker" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="https://groupie-tracker-wmcz.onrender.com" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-music"></i> Live Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> This application is hosted on Render and may take a few seconds to load if it hasn't been accessed recently.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Net-Cat Modal -->
+    <div class="modal" id="netcatModal">
+        <div class="modal-content">
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+            <div class="modal-image">
+                <img src="/assets/netcat.png" alt="Net-Cat">
+            </div>
+            <div class="modal-details">
+                <h2 class="modal-title">Net-Cat TCP Chat Server</h2>
+                <p class="modal-category">Network Programming (Go)</p>
+                <p class="modal-description">
+                    A TCP-based chat server that allows multiple users to connect and communicate in real-time through
+                    a terminal interface. Features include custom commands for username changes, text colors, and a
+                    robust broadcasting system that handles concurrent connections.
+                </p>
+                <div class="modal-tech">
+                    <span class="modal-tech-item">Go</span>
+                    <span class="modal-tech-item">TCP/IP</span>
+                    <span class="modal-tech-item">Concurrency</span>
+                    <span class="modal-tech-item">Network Programming</span>
+                </div>
+                <div class="modal-links">
+                    <a href="https://github.com/Aukryx/net-cat" target="_blank" class="modal-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                    <a href="net-cat-demo.html" class="modal-link modal-demo-link" target="_blank">
+                        <i class="fas fa-desktop"></i> Video Demo
+                    </a>
+                    <p class="modal-note">
+                        <i class="fas fa-info-circle"></i> Watch a complete demonstration of the chat server featuring multiple concurrent users, custom commands, and real-time messaging.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

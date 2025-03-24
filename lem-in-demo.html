@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lem-in Algorithm Visualization | Aukryx</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    h1, h2 {
+      color: #0ea5e9;
+    }
+    
+    .visualization {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    video {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .format-options {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    
+    .back-button, .download-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #0ea5e9;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .back-button:hover, .download-button:hover {
+      background-color: #0284c7;
+      transform: translateY(-2px);
+    }
+    
+    .download-button {
+      background-color: #10b981;
+      margin-right: 1rem;
+    }
+    
+    .download-button:hover {
+      background-color: #059669;
+    }
+    
+    .explanation {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .code-section {
+      background-color: #1e293b;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    
+    pre {
+      background-color: #0f172a;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: monospace;
+    }
+    
+    .algorithm-steps {
+      margin-top: 1.5rem;
+    }
+    
+    .algorithm-step {
+      display: flex;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    
+    .step-number {
+      background-color: #0ea5e9;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .step-content {
+      flex-grow: 1;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .algorithm-step {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .step-number {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .technology {
+      background-color: rgba(14, 165, 233, 0.2);
+      color: #0ea5e9;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lem-in Ant Colony Pathfinder</h1>
+    
+    <div class="visualization">
+      <h2>Algorithm Visualization</h2>
+      <p>Watch how the ants navigate through the colony network to find optimal paths:</p>
+      
+      <div class="video-container">
+        <video controls autoplay loop>
+          <source src="animation.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      <div class="format-options">
+        <a href="animation.mp4" download class="download-button">Download MP4</a>
+        <a href="animation.gif" download class="download-button">Download GIF</a>
+      </div>
+    </div>
+    
+    <div class="explanation">
+      <h2>How It Works</h2>
+      <p>The Lem-in algorithm solves a complex optimization problem involving moving ants through a network of tunnels. The goal is to move all ants from the start room to the end room in the minimum number of turns, with constraints that only one ant can occupy a room at a time (except for start/end rooms).</p>
+      
+      <div class="technologies">
+        <span class="technology">Graph Theory</span>
+        <span class="technology">Breadth-First Search</span>
+        <span class="technology">Path Finding</span>
+        <span class="technology">Traffic Optimization</span>
+        <span class="technology">Golang</span>
+      </div>
+      
+      <div class="algorithm-steps">
+        <div class="algorithm-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Input Parsing</h3>
+            <p>Parse the colony layout including the number of ants, room coordinates, and tunnel connections. Validate the input format and ensure that start and end rooms are properly defined.</p>
+          </div>
+        </div>
+        
+        <div class="algorithm-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Path Finding</h3>
+            <p>Use a breadth-first search algorithm to find all possible shortest paths from the start room to the end room. Multiple paths may have the same length, and we need to find all of them.</p>
+          </div>
+        </div>
+        
+        <div class="algorithm-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Ant Distribution</h3>
+            <p>Calculate the optimal distribution of ants across the available paths to minimize the total number of turns. This involves modeling how long it will take each ant to reach the end based on path length and congestion.</p>
+          </div>
+        </div>
+        
+        <div class="algorithm-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Movement Simulation</h3>
+            <p>Simulate ant movements turn by turn, ensuring that no two ants occupy the same room (except at start/end) and that each ant moves at most once per turn. The output is the sequence of movements that completes in the minimal number of turns.</p>
+          </div>
+        </div>
+        
+        <div class="algorithm-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Visualization</h3>
+            <p>Generate a visual representation of the colony and the movement of ants through the network, allowing for better understanding and analysis of the algorithm's performance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="code-section">
+      <h2>Example Input</h2>
+      <pre>3
+##start
+0 1 0
+##end
+1 5 0
+2 9 0
+3 13 0
+0-2
+2-3
+3-1</pre>
+      
+      <h2>Example Output</h2>
+      <pre>L1-2
+L1-3 L2-2
+L1-1 L2-3 L3-2
+L2-1 L3-3
+L3-1</pre>
+      
+      <p>In this example, 3 ants need to traverse the path from room 0 (start) to room 1 (end). The output shows how ants move in each turn. For example, "L1-2" means "ant 1 moves to room 2". The algorithm finds the optimal movement pattern that completes in just 5 turns.</p>
+    </div>
+    
+    <a href="index.html" class="back-button">Back to Portfolio</a>
+  </div>
+</body>
+</html>
